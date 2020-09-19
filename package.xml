@@ -3,8 +3,9 @@
 <package format="3">
   <name>pid</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="juulbloemers@hotmail.com">juul</maintainer>
+  <description>Unofficial ROS 2 PID node</description>
+  <maintainer email="juulbloemers@hotmail.com">Juul Bloemers</maintainer>
+  <maintainer email="larsbloemers@gmail.com">Lars Bloemers</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>builtin_interfaces</depend>

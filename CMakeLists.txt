@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 project(pid)
 
-# Default to C99
+# Default to C11
 if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 11)
 endif()
 
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
 endif()
@@ -42,27 +42,27 @@ ament_export_dependencies(rosidl_default_runtime)
 
 # Controller node.
 
-add_executable(controller src/controller.cpp)
+add_executable(controller_node src/config.cpp src/pid.cpp src/controller.cpp src/controller_node.cpp)
 
-ament_target_dependencies(controller 
+ament_target_dependencies(controller_node 
   rclcpp)
 
-target_include_directories(controller PUBLIC
+target_include_directories(controller_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
-install(TARGETS controller
+install(TARGETS controller_node
   DESTINATION lib/${PROJECT_NAME})
 
-# rosidl_target_interfaces(controller
+# rosidl_target_interfaces(controller_node
 #   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
 
 
-# install(DIRECTORY
-#   launch
-#   DESTINATION share/${PROJECT_NAME}
-# )
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
 
 # install(DIRECTORY
 #   config

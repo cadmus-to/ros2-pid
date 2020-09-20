@@ -16,7 +16,6 @@
 
 #include <cmath>
 #include <cstdint>
-#include <deque>
 #include <memory>
 #include <stdexcept>
 
@@ -35,38 +34,24 @@ namespace pid
 class Controller
 {
   public:
-    // Default queue sizes.
-    static constexpr std::size_t default_error_queue_size = 5;
-    static constexpr std::size_t minimal_error_queue_size = 2;
-
-    static_assert(
-        Controller::default_error_queue_size >= Controller::minimal_error_queue_size,
-        "default_error_queue_size must be greater than or equal to minimal_error_queue_size.");
-
     /**
      * @brief Construct a new PID controller object.
-     *
-     * @param error_queue_size
      */
-    Controller(std::size_t error_queue_size = Controller::default_error_queue_size);
+    Controller();
 
     /**
      * @brief Construct a new PID controller object.
      *
      * @param config
-     * @param error_queue_size
      */
-    Controller(const Config &config,
-               std::size_t error_queue_size = Controller::default_error_queue_size);
+    Controller(const Config &config);
 
     /**
      * @brief Construct a new PID controller controller object.
      *
      * @param config
-     * @param error_queue_size
      */
-    Controller(Config &&config,
-               std::size_t error_queue_size = Controller::default_error_queue_size);
+    Controller(Config &&config);
 
     ~Controller() noexcept = default;
 
@@ -97,10 +82,6 @@ class Controller
     void update();
 
   private:
-    std::deque<double> error_queue_;
-    std::deque<double> error_derivitive_queue_;
-    std::deque<double> error_integral_queue_;
-
     PID pid_;
     Config config_;
 
@@ -109,33 +90,27 @@ class Controller
     rclcpp::Time current_update_time_;
     rclcpp::Duration delta_t_ = rclcpp::Duration(0, 0);
 
-    double setpoint_ = 0.0;
-    double plant_state_ = 0.0;
-    bool input_value_changed_ = false;
-    double error_ = 0.0;
-    double last_error_ = 0.0;
-    double error_derivitive_ = 0.0;
-    double error_integral_ = 0.0;
+    double setpoint_;
+    double plant_state_;
 
-    double control_effort_ = 0.0;
+    double error_;
+    double last_error_;
+    double error_derivitive_;
+    double error_integral_;
 
-    /**
-     * @brief Update the error and error queue.
-     *
-     */
-    void update_error_();
-
-    /**
-     * @brief Update the error derivitive and error derivitive queue.
-     *
-     */
-    void update_error_derivitive_();
+    double control_effort_;
 
     /**
      * @brief Update the error integral and error integral queue.
      *
      */
     void update_error_integral_();
+
+    /**
+     * @brief Update the error derivitive and error derivitive queue.
+     *
+     */
+    void update_error_derivitive_();
 
     /**
      * @brief Update control effort based on the error values.

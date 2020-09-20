@@ -27,12 +27,6 @@ ControllerNode::ControllerNode() : rclcpp::Node("controller_node")
 {
     this->declare_parameters();
 
-    // Create new controller with given error_queue_size.
-    std::size_t error_queue_size;
-    this->get_parameter_or("error_queue_size", error_queue_size,
-                           Controller::default_error_queue_size);
-    this->controller_ = Controller(error_queue_size);
-
     this->load_controller_pid();
     this->load_controller_config();
 
@@ -52,9 +46,6 @@ ControllerNode::ControllerNode() : rclcpp::Node("controller_node")
 
     this->get_parameter_or<std::string>("controller_topic", topic, "control_effort");
     this->control_effort_publisher_ = this->create_publisher<std_msgs::msg::Float64>(topic, 1);
-
-    this->get_parameter_or<std::string>("debug_topic", topic, "debug");
-    this->debug_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(topic, 1);
 }
 
 void ControllerNode::update()
@@ -80,10 +71,6 @@ void ControllerNode::declare_parameters()
 
     // Publishers.
     this->declare_parameter("controller_topic");
-    this->declare_parameter("debug_topic");
-
-    // Controller.
-    this->declare_parameter("error_queue_size");
 
     // PID.
     this->declare_parameter("ki");

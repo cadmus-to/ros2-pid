@@ -24,20 +24,6 @@ find_package(std_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-# Generate interfaces.
-
-# messages
-# set(msg_files
-#   "msg/Triangle.msg"
-# )
-
-# rosidl_generate_interfaces(${PROJECT_NAME}
-#   # ${msg_files}
-#   DEPENDENCIES 
-#     builtin_interfaces
-#   ADD_LINTER_TESTS
-# )
-
 ament_export_dependencies(rosidl_default_runtime)
 
 # Controller node.
@@ -53,21 +39,6 @@ target_include_directories(controller_node PUBLIC
 
 install(TARGETS controller_node
   DESTINATION lib/${PROJECT_NAME})
-
-# rosidl_target_interfaces(controller_node
-#   ${PROJECT_NAME} rosidl_typesupport_cpp)
-
-
-
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
-# install(DIRECTORY
-#   config
-#   DESTINATION share/${PROJECT_NAME}
-# )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

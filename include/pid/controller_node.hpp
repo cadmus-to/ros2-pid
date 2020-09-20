@@ -63,7 +63,6 @@ class ControllerNode : public rclcpp::Node
 
     // Publishers.
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr control_effort_publisher_;
-    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr debug_publisher_;
 
     /**
      * @brief Declare ros parameters.

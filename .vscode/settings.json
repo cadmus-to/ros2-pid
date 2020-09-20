@@ -1,0 +1,9 @@
+{
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    // C / CPP Specific settings
+    "C_Cpp.clang_format_style": "File",
+    "C_Cpp.clang_format_sortIncludes": true,
+    // Python
+    "python.formatting.provider": "autopep8"
+}

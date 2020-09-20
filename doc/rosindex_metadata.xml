@@ -1,0 +1,10 @@
+<tags>
+    <tag>pid</tag>
+    <tag>pid controller</tag>
+    <tag>feedback system</tag>
+    <tag>feedback control system</tag>
+</tags>
+
+<tutorials>
+    <tutorial link="https://gitlab.com/Larsbl00/ros2-pid-examples">Repository with examples</tutorial>
+</tutorials>

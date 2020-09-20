@@ -4,8 +4,6 @@
 *install/
 *log/
 
-*doc/
-
 ### C ###
 # Prerequisites
 *.d

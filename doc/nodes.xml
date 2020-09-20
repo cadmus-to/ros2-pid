@@ -1,0 +1,19 @@
+<nodes>
+    <node>
+        <name>controller_node.cpp</name>
+
+        <description format="md">
+            `controller_node.cpp` is a node used to manage a feedback control system.
+            By launching the node with specified parameters (such as `kp`, `ki`, `kd`, etc.),
+            providing the node with a setpoint and providing it with state-data of a system, 
+            it will return the control effort.  
+        </description>
+
+        <ros_api>
+            <sub name="state" type="std_msgs/Float64">input data used for the PID system, e.g. current angle</sub>
+            <sub name="setpoint" type="std_msgs/Float64">the setpoint of the PID system, e.g. target angle</sub>
+            <sub name="enable" type="std_msgs/Bool">if true, updates the PID system. If false, disables the PID system</sub>
+            <sub name="control_effort" type="std_msgs">the control effort, or output of the PID system</sub>
+        </ros_api>
+    </node>
+</nodes>

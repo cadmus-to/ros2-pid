@@ -2,11 +2,12 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>pid</name>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
   <description>Unofficial ROS 2 PID node</description>
   <maintainer email="juulbloemers@hotmail.com">Juul Bloemers</maintainer>
   <maintainer email="larsbloemers@gmail.com">Lars Bloemers</maintainer>
-  <license>TODO: License declaration</license>
+  <license>MIT</license>
+  <url type="repository">https://gitlab.com/Juulbl/ros2-pid</url>
 
   <depend>builtin_interfaces</depend>
   <depend>rclcpp</depend>
@@ -25,5 +26,8 @@
 
   <export>
     <build_type>ament_cmake</build_type>
+    
+    <rosindex file="doc/rosindex_metadata.xml"/>
+    <rosindex file="doc/nodes.xml"/> 
   </export>
 </package>

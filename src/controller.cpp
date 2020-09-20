@@ -83,6 +83,11 @@ double Controller::get_control_effort()
 
 void Controller::set_setpoint(double setpoint)
 {
+    if (this->setpoint_ == setpoint)
+    {
+        return;
+    }
+
     this->setpoint_ = setpoint;
 }
 

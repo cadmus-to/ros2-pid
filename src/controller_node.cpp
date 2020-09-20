@@ -87,8 +87,8 @@ void ControllerNode::declare_parameters()
 void ControllerNode::load_controller_pid()
 {
     PID pid;
-    this->get_parameter<double>("ki", pid.ki);
     this->get_parameter<double>("kp", pid.kp);
+    this->get_parameter<double>("ki", pid.ki);
     this->get_parameter<double>("kd", pid.kd);
 
     this->controller_.set_pid(std::move(pid));

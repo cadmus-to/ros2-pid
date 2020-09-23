@@ -19,13 +19,13 @@
 #include <stdexcept>
 #include <string>
 
-#include "pid/pid.hpp"
+#include "jlb_pid/pid.hpp"
 
 //////////////////////
 // STRUCTS
 //////////////////////
 
-namespace pid
+namespace jlbpid
 {
 
 struct Config
@@ -54,6 +54,6 @@ struct Config
     bool is_valid() const;
 };
 
-} // namespace pid
+} // namespace jlbpid
 
 #endif

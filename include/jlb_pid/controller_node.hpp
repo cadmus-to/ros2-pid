@@ -24,14 +24,14 @@
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 
-#include "pid/config.hpp"
-#include "pid/controller.hpp"
+#include "jlb_pid/config.hpp"
+#include "jlb_pid/controller.hpp"
 
 //////////////////////
 // CLASSES
 //////////////////////
 
-namespace pid
+namespace jlbpid
 {
 
 class ControllerNode : public rclcpp::Node
@@ -89,6 +89,6 @@ class ControllerNode : public rclcpp::Node
     void enable_callback(const std_msgs::msg::Bool::SharedPtr msg);
 };
 
-} // namespace pid
+} // namespace jlbpid
 
 #endif

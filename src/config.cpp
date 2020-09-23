@@ -7,9 +7,9 @@
  * @copyright Copyright (c) 2020
  *
  */
-#include "pid/config.hpp"
+#include "jlb_pid/config.hpp"
 
-namespace pid
+namespace jlbpid
 {
 
 bool Config::is_valid() const
@@ -27,4 +27,4 @@ bool Config::is_valid() const
     return true;
 }
 
-} // namespace pid
+} // namespace jlbpid

@@ -14,13 +14,13 @@
 
 #include <cstdio>
 
-#include "pid/controller_node.hpp"
+#include "jlb_pid/controller_node.hpp"
 
 //////////////////////
 // METHODS
 //////////////////////
 
-namespace pid
+namespace jlbpid
 {
 
 ControllerNode::ControllerNode() : rclcpp::Node("controller_node")
@@ -121,7 +121,7 @@ void ControllerNode::enable_callback(const std_msgs::msg::Bool::SharedPtr msg)
     this->enabled_ = msg->data;
 }
 
-} // namespace pid
+} // namespace jlbpid
 
 //////////////////////
 // FUNCTIONS
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
 
-    auto controllerNode = std::make_shared<pid::ControllerNode>();
+    auto controllerNode = std::make_shared<jlbpid::ControllerNode>();
 
     rclcpp::Rate rate(1000);
     while (rclcpp::ok())

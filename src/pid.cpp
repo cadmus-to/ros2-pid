@@ -7,9 +7,9 @@
  * @copyright Copyright (c) 2020
  *
  */
-#include "pid/pid.hpp"
+#include "jlb_pid/pid.hpp"
 
-namespace pid
+namespace jlbpid
 {
 
 bool PID::is_valid() const
@@ -18,4 +18,4 @@ bool PID::is_valid() const
            (this->kp >= 0 && this->ki >= 0 && this->kd >= 0);
 }
 
-} // namespace pid
+} // namespace jlbpid

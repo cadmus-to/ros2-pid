@@ -14,7 +14,7 @@
 // STRUCTS
 //////////////////////
 
-namespace pid
+namespace jlbpid
 {
 
 /**
@@ -37,6 +37,6 @@ struct PID
     bool is_valid() const;
 };
 
-} // namespace pid
+} // namespace jlbpid
 
 #endif

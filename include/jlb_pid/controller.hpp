@@ -21,14 +21,14 @@
 
 #include <rclcpp/rclcpp.hpp>
 
-#include "pid/config.hpp"
-#include "pid/pid.hpp"
+#include "jlb_pid/config.hpp"
+#include "jlb_pid/pid.hpp"
 
 //////////////////////
 // CLASSES
 //////////////////////
 
-namespace pid
+namespace jlbpid
 {
 
 class Controller
@@ -119,6 +119,6 @@ class Controller
     void update_control_effort_();
 };
 
-} // namespace pid
+} // namespace jlbpid
 
 #endif

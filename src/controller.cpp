@@ -7,9 +7,9 @@
  * @copyright Copyright (c) 2020
  *
  */
-#include "pid/controller.hpp"
+#include "jlb_pid/controller.hpp"
 
-namespace pid
+namespace jlbpid
 {
 
 Controller::Controller()
@@ -162,4 +162,4 @@ void Controller::update_control_effort_()
     }
 }
 
-} // namespace pid
+} // namespace jlbpid

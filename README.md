@@ -24,6 +24,8 @@ This section will go over the interaction with the PID node.
 | ki   | `double` | Integral gain, default = `0.0`     |
 | kd   | `double` | Derivative gain, default = `0.0`   |
 
+> Note: `kp`, `ki` and `kd` must all be either positive or negative (a mixture of signs results in an error)
+
 #### Optional
 
 | Name             | Type     | Description                                                                                                              |
@@ -62,7 +64,7 @@ Node(
         {'ki': 0.01},
         {'kd': 0.02},
         {'upper_limit': 0.6},
-        {'lower_limit': -0.6},
+        {'lower_limit': 0.6},
         {'windup_limit': 0.001}
     ]
 )

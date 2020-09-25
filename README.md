@@ -64,7 +64,7 @@ Node(
         {'ki': 0.01},
         {'kd': 0.02},
         {'upper_limit': 0.6},
-        {'lower_limit': 0.6},
+        {'lower_limit': -0.6},
         {'windup_limit': 0.001}
     ]
 )

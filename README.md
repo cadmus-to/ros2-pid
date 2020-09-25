@@ -3,11 +3,39 @@
 PID controller for ROS2
 
 ## Documentation
-All documentation can be found in the `doc` directory.
-For convenience, you can use the following items to navigate:
+This section will go over the interaction with the PID node.
 
-- [Interfaces](doc/interfaces.md)
-- [Launch Parameters](doc/params.md)
+### Topics
+
+| Name           | Type               | Description                                                        |
+| :------------- | :----------------- | :----------------------------------------------------------------- |
+| state          | `std_msgs/Float64` | input data used for the PID system, e.g. current angle             |
+| setpoint       | `std_msgs/Float64` | the setpoint of the PID system, e.g. target angle                  |
+| enable         | `std_msgs/Bool`    | if true, updates the PID system. If false, disables the PID system |
+| control_effort | `std_msgs/Float64` | the control effort, or output of the PID system                    |
+
+
+### Parameters
+#### Required
+
+| Name | Type     | Description                        |
+| :--- | :------- | :--------------------------------- |
+| kp   | `double` | Proportional gain, default = `0.0` |
+| ki   | `double` | Integral gain, default = `0.0`     |
+| kd   | `double` | Derivative gain, default = `0.0`   |
+
+#### Optional
+
+| Name             | Type     | Description                                                                                                              |
+| :--------------- | :------- | :----------------------------------------------------------------------------------------------------------------------- |
+| plant_topic      | `string` | allows the user to configure an alternative topic name for the plant, default = `state`                                  |
+| setpoint_topic   | `string` | allows the user to configure an alternative topic name for the setpoint, default = `setpoint`                            |
+| enable_topic     | `string` | allows the user to configure an alternative topic name to turn the system on and of, default = `enable`                  |
+| controller_topic | `string` | allows the user to configure an alternative topic name for the control effort, default = `control_effort`                |
+| -                | -        | -                                                                                                                        |
+| upper_limit      | `double` | maximum control effort value, default = `double_max`                                                                     |
+| lower_limit      | `double` | minimum control effort value, default = `double_lowest`                                                                  |
+| windup_limit     | `double` | limits the error increase or decrease for the integrator (mainly used for hardware restrictions), default = `double_max` |
 
 ## Examples
 A set of example projects have been created and can be found [here][example_repo].

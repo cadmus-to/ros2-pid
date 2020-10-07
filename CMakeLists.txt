@@ -46,7 +46,7 @@ target_include_directories(controller_node PUBLIC
 
 install(TARGETS controller_node
   EXPORT controller_node
-  DESTINATION bin/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME})
 
 # Export dependencies
 

@@ -12,10 +12,11 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Werror)
 endif()
 
 # Find dependencies
+
 find_package(ament_cmake REQUIRED)
 
 find_package(rclcpp REQUIRED)
@@ -24,9 +25,15 @@ find_package(std_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-ament_export_dependencies(rosidl_default_runtime)
-
 # Controller node.
+
+
+# Install library 
+
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
 
 add_executable(controller_node src/config.cpp src/pid.cpp src/controller.cpp src/controller_node.cpp)
 
@@ -38,7 +45,22 @@ target_include_directories(controller_node PUBLIC
   $<INSTALL_INTERFACE:include>)
 
 install(TARGETS controller_node
-  DESTINATION lib/${PROJECT_NAME})
+  EXPORT controller_node
+  DESTINATION bin/${PROJECT_NAME})
+
+# Export dependencies
+
+ament_export_dependencies(
+  rclcpp
+  std_msgs
+  builtin_interfaces
+  rosidl_default_runtime
+)
+
+ament_export_targets(controller_node)
+
+ament_export_include_directories(include)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

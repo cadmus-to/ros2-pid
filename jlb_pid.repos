@@ -1,0 +1,5 @@
+repositories:
+    jlb_pid/jlb_pid:
+        type: git
+        url: https://gitlab.com/Juulbl/ros2-pid.git
+        version: ros2

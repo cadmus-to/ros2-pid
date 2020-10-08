@@ -2,6 +2,37 @@
 
 PID controller for ROS2
 
+## Installation
+To use the library effectivly, we will have to make use of vcs-tool. 
+The following steps need to be taken:
+```sh
+mkdir -p ~/jlb_pid_ws/src
+cd ~/jlb_pid_ws
+wget https://gitlab.com/Juulbl/ros2-pid/-/raw/ros2/jlb_pid.repos
+vcs import src < jlb_pid.repos
+colcon build --symlink-install
+
+# Add them to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
+echo 'source ~/jlb_pid_ws/install/setup.sh' >> ~/.bashrc
+```
+
+Once this is set up, we will need to setup the dependencies of the package.
+
+`package.xml`:
+```xml
+<!-- As a generic dependency -->
+<depend>jlb_pid</depend>
+
+<!-- Or, as an exec dependency -->
+<exec_depend>jlb_pid</exec_depend>
+```
+
+`CMakeLists.txt`:
+```cmake
+find_package(jlb_pid REQUIRED)
+```
+
+
 ## Documentation
 This section will go over the interaction with the PID node.
 

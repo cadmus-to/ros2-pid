@@ -30,6 +30,10 @@ ControllerNode::ControllerNode() : rclcpp::Node("controller_node")
     this->load_controller_pid();
     this->load_controller_config();
 
+    // Retrieve update_rate
+    this->get_parameter_or<double>("update_rate", this->update_rate,
+                                   ControllerNode::DEFAULT_UPDATE_RATE_HZ);
+
     // Subscribers / Publishers.
     std::string topic;
     this->get_parameter_or<std::string>("plant_topic", topic, "state");
@@ -46,6 +50,11 @@ ControllerNode::ControllerNode() : rclcpp::Node("controller_node")
 
     this->get_parameter_or<std::string>("controller_topic", topic, "control_effort");
     this->control_effort_publisher_ = this->create_publisher<std_msgs::msg::Float64>(topic, 1);
+}
+
+double ControllerNode::get_update_rate() const
+{
+    return this->update_rate;
 }
 
 void ControllerNode::update()
@@ -82,6 +91,9 @@ void ControllerNode::declare_parameters()
     this->declare_parameter("lower_limit");
 
     this->declare_parameter("windup_limit");
+
+    // Other.
+    this->declare_parameter("update_rate");
 }
 
 void ControllerNode::load_controller_pid()
@@ -133,7 +145,7 @@ int main(int argc, char **argv)
 
     auto controllerNode = std::make_shared<jlbpid::ControllerNode>();
 
-    rclcpp::Rate rate(1000);
+    rclcpp::Rate rate(controllerNode->get_update_rate());
     while (rclcpp::ok())
     {
         controllerNode->update();

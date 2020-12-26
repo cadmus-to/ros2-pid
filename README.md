@@ -66,7 +66,7 @@ This section will go over the interaction with the PID node.
 | enable_topic     | `string` | allows the user to configure an alternative topic name to turn the system on and of, default = `enable`                  |
 | controller_topic | `string` | allows the user to configure an alternative topic name for the control effort, default = `control_effort`                |
 | -                | -        | -                                                                                                                        |
-| update_rate      | `double` | update rate of the node expressed in Hz, default = 1000Hz                                                                |
+| update_rate      | `double` | update rate of the node expressed in Hz, default = `1000`                                                                |
 | -                | -        | -                                                                                                                        |
 | upper_limit      | `double` | maximum control effort value, default = `double_max`                                                                     |
 | lower_limit      | `double` | minimum control effort value, default = `double_lowest`                                                                  |

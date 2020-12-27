@@ -43,7 +43,38 @@ namespace jlbpid
  * More info: <https://en.wikipedia.org/wiki/PID_controller>
  *
  * @code
- *  Controller controller();
+ *
+ *  #include <jlb_pid/controller.hpp>
+ *
+ *  // Create a controller with a PID and config.
+ *  // We will be the default controller, see `Controller::Controller`.
+ *  Controller controller;
+ *
+ *  // Change the setpoint
+ *  controller.set_setpoint(100);
+ *
+ *  // Create a state mock object
+ *  double state = 0;
+ *
+ *  // Create a loop to update the `plant_state` and log the control effort.
+ *  // Since we cannot actually measure the `plant_state`, we will use the return value of our
+ *  // control effort to do this
+ *  while(true){
+ *    controller.set_plant_state(state);
+ *    controller.update();
+ *    state = controller.get_control_effort();
+ *
+ *    std::cout << "State:" << state << std::endl;
+ *  }
+ *
+ *  // If these function need to be executed in the same order within the same scope
+ *  // An overload of `Controller::update` can be used.
+ *  while(true){
+ *    state = controller.update(state);
+ *
+ *    std::cout << "State:" << state << std::endl;
+ *  }
+ *
  * @endcode
  *
  * @example ControllerNode controller_node.hpp controller_node.cpp

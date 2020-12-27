@@ -25,9 +25,6 @@ find_package(std_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-# Controller node.
-
-
 # Install library 
 
 install(
@@ -35,7 +32,28 @@ install(
   DESTINATION include
 )
 
-add_executable(controller_node src/config.cpp src/pid.cpp src/controller.cpp src/controller_node.cpp)
+# LIBRARY.
+## Create library for source code
+add_library(${PROJECT_NAME}_core src/config.cpp src/pid.cpp src/controller.cpp)
+
+## Link deps
+ament_target_dependencies(${PROJECT_NAME}_core
+  rclcpp)
+
+  ## Link inclusions  
+target_include_directories(${PROJECT_NAME}_core PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
+
+install(TARGETS ${PROJECT_NAME}_core
+  EXPORT ${PROJECT_NAME}_core
+  DESTINATION lib)
+
+# NODES.
+# Use the library as input for the node
+add_executable(controller_node src/controller_node.cpp)
+target_link_libraries(controller_node ${PROJECT_NAME}_core)
 
 ament_target_dependencies(controller_node 
   rclcpp)
@@ -57,9 +75,12 @@ ament_export_dependencies(
   rosidl_default_runtime
 )
 
-ament_export_targets(controller_node)
-
 ament_export_include_directories(include)
+
+ament_export_libraries(${PROJECT_NAME}_core)
+
+# NOTE: Export not needed, executable should be found automatically
+# ament_export_targets(controller_node)
 
 
 if(BUILD_TESTING)

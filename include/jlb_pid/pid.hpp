@@ -23,9 +23,9 @@ namespace jlbpid
  */
 struct PID
 {
-    double kp;
-    double ki;
-    double kd;
+    double kp = 1;
+    double ki = 0;
+    double kd = 0;
 
     /**
      * @brief Checks whether the values of the PID are valid or not.

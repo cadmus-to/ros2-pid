@@ -12,22 +12,14 @@
 namespace jlbpid
 {
 
-Controller::Controller()
+Controller::Controller(PID &&pid, Config &&config)
+    : pid_(std::move(pid)), config_(std::move(config))
 {
-}
-
-Controller::Controller(const Config &config)
-    : config_(config), last_update_time_(this->clock_.now())
-{
-    if (!config.is_valid())
+    if (!pid.is_valid())
     {
-        throw std::runtime_error("Invalid config");
+        throw std::runtime_error("Invalid PID");
     }
-}
 
-Controller::Controller(Config &&config)
-    : config_(std::move(config)), last_update_time_(this->clock_.now())
-{
     if (!config.is_valid())
     {
         throw std::runtime_error("Invalid config");
@@ -41,7 +33,23 @@ Controller &Controller::operator=(Controller &&controller)
         return *this;
     }
 
+    this->pid_ = std::move(controller.pid_);
     this->config_ = std::move(controller.config_);
+
+    this->setpoint_ = controller.setpoint_;
+    this->plant_state_ = controller.plant_state_;
+
+    this->clock_ = std::move(controller.clock_);
+    this->last_update_time_ = controller.last_update_time_;
+    this->current_update_time_ = controller.current_update_time_;
+    this->delta_t_ = controller.delta_t_;
+
+    this->error_ = controller.error_;
+    this->last_error_ = controller.last_error_;
+    this->error_derivitive_ = controller.error_derivitive_;
+    this->error_integral_ = controller.error_integral_;
+
+    this->control_effort_ = controller.control_effort_;
 
     return *this;
 }
@@ -76,7 +84,7 @@ void Controller::set_config(Config &&config)
     this->config_ = std::move(config);
 }
 
-double Controller::get_control_effort()
+double Controller::get_control_effort() const
 {
     return this->control_effort_;
 }
@@ -91,7 +99,7 @@ void Controller::set_setpoint(double setpoint)
     this->setpoint_ = setpoint;
 }
 
-double Controller::get_setpoint()
+double Controller::get_setpoint() const
 {
     return this->setpoint_;
 }
@@ -101,7 +109,7 @@ void Controller::set_plant_state(double plant_state)
     this->plant_state_ = plant_state;
 }
 
-double Controller::get_plant_state()
+double Controller::get_plant_state() const
 {
     return this->plant_state_;
 }
@@ -126,6 +134,17 @@ void Controller::update()
     this->last_error_ = this->error_;
     this->last_update_time_ = this->current_update_time_;
 }
+
+double Controller::update(double plant_state)
+{
+    this->set_plant_state(plant_state);
+    this->update();
+    return this->get_control_effort();
+}
+
+///////////////
+// PRIVATE.
+///////////////
 
 void Controller::update_error_integral_()
 {

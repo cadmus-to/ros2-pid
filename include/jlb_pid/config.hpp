@@ -50,6 +50,10 @@ struct Config
      *
      * @return true
      * @return false
+     *
+     * @throw std::runtime_error Current `windup_limit` is <0, must be >= 0
+     * @throw std::runtime_error `lower_limit` >= `upper_limit`, `upper_limit` *must* be higher than
+     * `lower_limit`
      */
     bool is_valid() const;
 };

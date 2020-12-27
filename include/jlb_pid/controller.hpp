@@ -42,6 +42,10 @@ namespace jlbpid
  *
  * More info: <https://en.wikipedia.org/wiki/PID_controller>
  *
+ * @code
+ *  Controller controller();
+ * @endcode
+ *
  * @example ControllerNode controller_node.hpp controller_node.cpp
  *
  */

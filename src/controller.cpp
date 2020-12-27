@@ -33,7 +33,23 @@ Controller &Controller::operator=(Controller &&controller)
         return *this;
     }
 
+    this->pid_ = std::move(controller.pid_);
     this->config_ = std::move(controller.config_);
+
+    this->setpoint_ = controller.setpoint_;
+    this->plant_state_ = controller.plant_state_;
+
+    this->clock_ = std::move(controller.clock_);
+    this->last_update_time_ = controller.last_update_time_;
+    this->current_update_time_ = controller.current_update_time_;
+    this->delta_t_ = controller.delta_t_;
+
+    this->error_ = controller.error_;
+    this->last_error_ = controller.last_error_;
+    this->error_derivitive_ = controller.error_derivitive_;
+    this->error_integral_ = controller.error_integral_;
+
+    this->control_effort_ = controller.control_effort_;
 
     return *this;
 }

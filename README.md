@@ -3,7 +3,11 @@
 PID controller for ROS2
 
 ## Installation
-To use the library effectivly, we will have to make use of vcs-tool. 
+
+This library can be used in two ways, as a library and as a node.
+If you want to use the nodes, follow the steps below.
+
+To use the library effectively, we will have to make use of vcs-tool. 
 The following steps need to be taken:
 ```sh
 mkdir -p ~/jlb_pid_ws/src
@@ -16,6 +20,7 @@ colcon build --symlink-install
 echo 'source ~/jlb_pid_ws/install/setup.sh' >> ~/.bashrc
 ```
 
+## Adding to a project
 Once this is set up, we will need to setup the dependencies of the package.
 
 `package.xml`:
@@ -23,18 +28,29 @@ Once this is set up, we will need to setup the dependencies of the package.
 <!-- As a generic dependency -->
 <depend>jlb_pid</depend>
 
-<!-- Or, as an exec dependency -->
+<!-- Or, as a build dependency (when using the library) -->
+<build_depend>jlb_pid</build_depend>
+
+<!-- Or, as an exec dependency (when using the topic interface)-->
 <exec_depend>jlb_pid</exec_depend>
 ```
 
 `CMakeLists.txt`:
 ```cmake
 find_package(jlb_pid REQUIRED)
+
+# Add the following if you want to use the library
+
+ament_target_dependencies(<PACKAGE_NAME> 
+  jlb_pid
+)
 ```
 
 
 ## Documentation
 This section will go over the interaction with the PID node.
+
+### Library
 
 ### Topics
 

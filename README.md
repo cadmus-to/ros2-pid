@@ -112,7 +112,7 @@ This section will go over the documentation when using the `controller_node`.
 
 | Name | Type     | Description                        |
 | :--- | :------- | :--------------------------------- |
-| kp   | `double` | Proportional gain, default = `0.0` |
+| kp   | `double` | Proportional gain, default = `1.0` |
 | ki   | `double` | Integral gain, default = `0.0`     |
 | kd   | `double` | Derivative gain, default = `0.0`   |
 

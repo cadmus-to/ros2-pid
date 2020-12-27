@@ -34,10 +34,19 @@
 namespace jlbpid
 {
 
+/**
+ * @brief Wraps around the `jlbpid::Controller` and makes the PID functionality accessible without
+ * having to type any code. Also serves as great class to see how the `jlbpid::Controller` object
+ * works.
+ *
+ */
 class ControllerNode : public rclcpp::Node
 {
 
   public:
+    inline static constexpr double DEFAULT_UPDATE_RATE_HZ =
+        1000; // Default update rate for the node, in `Hz`
+
     /**
      * @brief Construct a new controller node.
      *
@@ -45,6 +54,13 @@ class ControllerNode : public rclcpp::Node
     ControllerNode();
 
     ~ControllerNode() noexcept = default;
+
+    /**
+     * @brief Get the requested update rate of the node.
+     *
+     * @return const std_msgs::msg::Float64& update rate in `Hz`
+     */
+    double get_update_rate() const;
 
     /**
      * @brief Update node.
@@ -55,6 +71,7 @@ class ControllerNode : public rclcpp::Node
   private:
     bool enabled_ = true;
     Controller controller_;
+    double update_rate;
 
     // Subscriptions
     rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr plant_state_subscription_;
@@ -64,6 +81,7 @@ class ControllerNode : public rclcpp::Node
     // Publishers.
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr control_effort_publisher_;
 
+    // Methods.
     /**
      * @brief Declare ros parameters.
      *

@@ -48,7 +48,7 @@ namespace jlbpid
  *
  *  // Create a controller with a PID and config.
  *  // We will be the default controller, see `Controller::Controller`.
- *  Controller controller;
+ *  jlbpid::Controller controller;
  *
  *  // Change the setpoint
  *  controller.set_setpoint(100);

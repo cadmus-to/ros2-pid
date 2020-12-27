@@ -66,6 +66,8 @@ This section will go over the interaction with the PID node.
 | enable_topic     | `string` | allows the user to configure an alternative topic name to turn the system on and of, default = `enable`                  |
 | controller_topic | `string` | allows the user to configure an alternative topic name for the control effort, default = `control_effort`                |
 | -                | -        | -                                                                                                                        |
+| update_rate      | `double` | update rate of the node expressed in Hz, default = `1000`                                                                |
+| -                | -        | -                                                                                                                        |
 | upper_limit      | `double` | maximum control effort value, default = `double_max`                                                                     |
 | lower_limit      | `double` | minimum control effort value, default = `double_lowest`                                                                  |
 | windup_limit     | `double` | limits the error increase or decrease for the integrator (mainly used for hardware restrictions), default = `double_max` |
@@ -91,9 +93,11 @@ Node(
     executable='controller_node',
     name='distance_controller',
     parameters=[
+        # Required
         {'kp': 2.0},
         {'ki': 0.01},
         {'kd': 0.02},
+        # Optional
         {'upper_limit': 0.6},
         {'lower_limit': -0.6},
         {'windup_limit': 0.001}

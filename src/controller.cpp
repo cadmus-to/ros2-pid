@@ -76,7 +76,7 @@ void Controller::set_config(Config &&config)
     this->config_ = std::move(config);
 }
 
-double Controller::get_control_effort()
+double Controller::get_control_effort() const
 {
     return this->control_effort_;
 }
@@ -91,7 +91,7 @@ void Controller::set_setpoint(double setpoint)
     this->setpoint_ = setpoint;
 }
 
-double Controller::get_setpoint()
+double Controller::get_setpoint() const
 {
     return this->setpoint_;
 }
@@ -101,7 +101,7 @@ void Controller::set_plant_state(double plant_state)
     this->plant_state_ = plant_state;
 }
 
-double Controller::get_plant_state()
+double Controller::get_plant_state() const
 {
     return this->plant_state_;
 }

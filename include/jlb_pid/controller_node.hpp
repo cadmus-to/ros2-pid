@@ -34,6 +34,12 @@
 namespace jlbpid
 {
 
+/**
+ * @brief Wraps around the `jlbpid::Controller` and makes the PID functionality accessible without
+ * having to type any code. Also serves as great class to see how the `jlbpid::Controller` object
+ * works.
+ *
+ */
 class ControllerNode : public rclcpp::Node
 {
 

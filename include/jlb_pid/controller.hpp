@@ -31,6 +31,20 @@
 namespace jlbpid
 {
 
+/**
+ * @brief PID Controller class.
+ * When given a target (henceforth referred to as `setpoint`) the system will return a
+ * `control_effort` based on how much the current state (henceforth referred to as `plant_state`)
+ * deviates from the `setpioint`.
+ *
+ * The strength of the `control_effort` changes based on values used for the `PID`.
+ * How fast a `setpoint` can be reached also depends on the provided `Config`.
+ *
+ * More info: <https://en.wikipedia.org/wiki/PID_controller>
+ *
+ * @example ControllerNode controller_node.hpp controller_node.cpp
+ *
+ */
 class Controller
 {
   public:
@@ -57,26 +71,83 @@ class Controller
 
     Controller &operator=(Controller &&controller);
 
+    /**
+     * @brief Get the pid object
+     *
+     * @return const PID& An immutable reference to the current `PID` configuration
+     */
     const PID &get_pid() const;
 
+    /**
+     * @brief Set the pid object
+     *
+     * @param pid new *valid* `PID` config
+     *
+     * @throw std::runtime_error The provided values for PID are deemed invalid, see
+     * `PID::is_vallid`.
+     */
     void set_pid(PID &&pid);
 
+    /**
+     * @brief Get the config object
+     *
+     * @return const Config& An immutable reference to the current `Config`
+     */
     const Config &get_config() const;
 
+    /**
+     * @brief Set the config object
+     *
+     * @param config new *valid* `Config`
+     *
+     * @throw std::runtime_error The provided values for the config are deemed invalid, see
+     * `Config::is_vallid`
+     */
     void set_config(Config &&config);
 
+    /**
+     * @brief Set the setpoint object
+     *
+     * @param setpoint The new target the system is trying to reach
+     */
     void set_setpoint(double setpoint);
 
-    double get_setpoint();
-
-    void set_plant_state(double plant_state);
-
-    double get_plant_state();
-
-    double get_control_effort();
+    /**
+     * @brief Get the setpoint object
+     *
+     * @return double
+     */
+    double get_setpoint() const;
 
     /**
-     * @brief Update controller.
+     * @brief Set the plant state of the system (i.e. the current value of the system it is trying
+     * to control).
+     *
+     * @param plant_state The value the system currently has
+     *
+     * @note Changing the plant_state does *not* update the system, use `Controller::update` for
+     * that.
+     */
+    void set_plant_state(double plant_state);
+
+    /**
+     * @brief Get the last registered state of the system it is trying to control
+     *
+     * @return double
+     */
+    double get_plant_state() const;
+
+    /**
+     * @brief Get the control effort from the system.
+     *
+     * @return double
+     *
+     * @note The values of the control effort are changed after `Controller:update` is called
+     */
+    double get_control_effort() const;
+
+    /**
+     * @brief Updates controller.
      *
      */
     void update();

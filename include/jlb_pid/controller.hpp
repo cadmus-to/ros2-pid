@@ -31,24 +31,6 @@
 namespace jlbpid
 {
 
-/**
- * @brief PID Controller object. For more info see: <https://en.wikipedia.org/wiki/PID_controller>.
- * By constructing the object and by changing the `PID` values, changes how strong the control
- * effort is while it is trying to reach its target (henceforth refferred to  as the `setpoint`).
- *
- * The `setpoint` determines the goal of the control system. The current state of the system is
- * present in `plant_state`. This will return a `control_effort`.
- *
- * By adding a `Config` it can be configured how the controller reaches its target. For more info,
- * refer to the `Config` structure.
- *
- * To update the controller use the `update()` function. This will automatically take account of the
- * deltaTime used in the calculations.
- *
- *
- * @todo Add the `PID` struct to the constructor. This object should be function without having to
- * build it as a node.
- */
 class Controller
 {
   public:

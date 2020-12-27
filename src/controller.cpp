@@ -12,22 +12,14 @@
 namespace jlbpid
 {
 
-Controller::Controller()
+Controller::Controller(PID &&pid, Config &&config)
+    : pid_(std::move(pid)), config_(std::move(config))
 {
-}
-
-Controller::Controller(const Config &config)
-    : config_(config), last_update_time_(this->clock_.now())
-{
-    if (!config.is_valid())
+    if (!pid.is_valid())
     {
-        throw std::runtime_error("Invalid config");
+        throw std::runtime_error("Invalid PID");
     }
-}
 
-Controller::Controller(Config &&config)
-    : config_(std::move(config)), last_update_time_(this->clock_.now())
-{
     if (!config.is_valid())
     {
         throw std::runtime_error("Invalid config");
@@ -126,6 +118,17 @@ void Controller::update()
     this->last_error_ = this->error_;
     this->last_update_time_ = this->current_update_time_;
 }
+
+double Controller::update(double plant_state)
+{
+    this->set_plant_state(plant_state);
+    this->update();
+    return this->get_control_effort();
+}
+
+///////////////
+// PRIVATE.
+///////////////
 
 void Controller::update_error_integral_()
 {

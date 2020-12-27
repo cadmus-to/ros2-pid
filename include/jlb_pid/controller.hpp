@@ -49,23 +49,15 @@ class Controller
 {
   public:
     /**
-     * @brief Construct a new PID controller object.
-     */
-    Controller();
-
-    /**
-     * @brief Construct a new PID controller object.
+     * @brief Construct a new Controller object
      *
-     * @param config
-     */
-    Controller(const Config &config);
-
-    /**
-     * @brief Construct a new PID controller controller object.
+     * @param pid The values for the PID system, defaults to {kp: 1, ki: 0, kd: 0}
+     * @param config The configuration for the PID system, uses all default values for the `Config`.
      *
-     * @param config
+     * @throw std::runtime_error PID is deemed invalid, see `PID::is_vallid`
+     * @throw std::runtime_error Config is deemed invalid, see `Config::is_vallid`.
      */
-    Controller(Config &&config);
+    Controller(PID &&pid = {1, 0, 0}, Config &&config = {});
 
     ~Controller() noexcept = default;
 
@@ -149,8 +141,21 @@ class Controller
     /**
      * @brief Updates controller.
      *
+     * @pre `plant_state` has been set using `Controller::set_plant_state`.
+     * @post `control_effort` is updated and can be accessed using `Controller::get_control_effort`.
      */
     void update();
+
+    /**
+     * @brief Updates the controller using a given plant state
+     *
+     * @param plant_state The value the system currently has
+     * @return double The control effort
+     *
+     * @note This function merges the functionality of `set_plant_state`, `update` and
+     * `get_control_effort`.
+     */
+    double update(double plant_state);
 
   private:
     PID pid_;

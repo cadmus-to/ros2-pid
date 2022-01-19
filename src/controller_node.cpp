@@ -74,26 +74,26 @@ void ControllerNode::update()
 void ControllerNode::declare_parameters()
 {
     // Subscribers.
-    this->declare_parameter("plant_topic");
-    this->declare_parameter("setpoint_topic");
-    this->declare_parameter("enable_topic");
+    this->declare_parameter<std::string>("plant_topic");
+    this->declare_parameter<std::string>("setpoint_topic");
+    this->declare_parameter<std::string>("enable_topic");
 
     // Publishers.
-    this->declare_parameter("controller_topic");
+    this->declare_parameter<std::string>("controller_topic");
 
     // PID.
-    this->declare_parameter("ki");
-    this->declare_parameter("kp");
-    this->declare_parameter("kd");
+    this->declare_parameter<double>("ki");
+    this->declare_parameter<double>("kp");
+    this->declare_parameter<double>("kd");
 
     // Controller config.
-    this->declare_parameter("upper_limit");
-    this->declare_parameter("lower_limit");
+    this->declare_parameter<double>("upper_limit");
+    this->declare_parameter<double>("lower_limit");
 
-    this->declare_parameter("windup_limit");
+    this->declare_parameter<double>("windup_limit");
 
     // Other.
-    this->declare_parameter("update_rate");
+    this->declare_parameter<double>("update_rate");
 }
 
 void ControllerNode::load_controller_pid()

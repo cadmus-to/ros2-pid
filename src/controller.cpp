@@ -21,7 +21,7 @@ Controller::Controller(PID &&pid, Config &&config)
     , plant_state_{0}
     , error_{0}
     , last_error_{0}
-    , error_derivative_{0}
+    , error_derivitive_{0}
     , error_integral_{0}
     , control_effort_{0}
 {

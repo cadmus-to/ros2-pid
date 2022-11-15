@@ -14,7 +14,7 @@ namespace jlbpid
 
 Controller::Controller(PID &&pid, Config &&config)
     : pid_(std::move(pid)), config_(std::move(config))
-    , clock+{RCL_ROS_TIME}
+    , clock_{RCL_ROS_TIME}
     , last_update_time_{clock_.now()}
     , current_update_time_{clock_.now()}
 {

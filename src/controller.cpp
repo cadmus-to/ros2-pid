@@ -17,6 +17,13 @@ Controller::Controller(PID &&pid, Config &&config)
     , clock_{RCL_ROS_TIME}
     , last_update_time_{clock_.now()}
     , current_update_time_{clock_.now()}
+    , setpoint_{0}
+    , plant_state_{0}
+    , error_{0}
+    , last_error_{0}
+    , error_derivative_{0}
+    , error_integral_{0}
+    , control_effort_{0}
 {
     if (!pid.is_valid())
     {
